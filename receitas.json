@@ -1,0 +1,20 @@
+[
+    {
+        "titulo": "Pão de Queijo",
+        "imagem": "pao_de_queijo.jpg",
+        "preparo": "1. Misture polvilho e queijo.\n2. Acrescente ovos e leite.\n3. Adicione sal a gosto.\n4. Modele e asse em forno preaquecido.",
+        "ingredientes": ["500g de polvilho doce", "250g de queijo minas ralado", "2 ovos", "1 xícara de leite", "Sal a gosto"]
+    },
+    {
+        "titulo": "Omelete de Queijo e Tomate",
+        "imagem": "omelete_queijo_tomate.jpg",
+        "preparo": "1. Bata os ovos em uma tigela.\n2. Adicione queijo e tomate picados.\n3. Tempere com sal e pimenta.\n4. Cozinhe em frigideira até dourar.",
+        "ingredientes": ["3 ovos", "Queijo cheddar ralado", "Tomate picado", "Sal e pimenta a gosto"]
+    },
+    {
+        "titulo": "Salada Caesar",
+        "imagem": "salada_caesar.jpg",
+        "preparo": "1. Misture alface romana, croutons e queijo parmesão.\n2. Tempere com molho Caesar.\n3. Adicione tiras de frango grelhado.\n4. Sirva imediatamente.",
+        "ingredientes": ["Alface romana", "Croutons", "Queijo parmesão ralado", "Molho Caesar", "Peito de frango grelhado"]
+    }
+]

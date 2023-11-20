@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .formatacao {
+            height: 60px;
+            overflow-y: auto;
+            border: 0px solid #000;
+            padding: 0;
+            bg-warning
+        };
+      
+
+        .painelReceita {
+            /* Adicione estilos para cada painel de receita */
+            margin: 10px;
+            padding: 10px;
+
+        }
+        .card {
+    width: 300px; /* Defina um tamanho fixo para os cards */
+    margin: 0 10px 20px 10px; /* Adiciona margens */
+    display: inline-block; /* Permite que os cards fiquem lado a lado */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil aos cards */
+}
+
+.card-img-top {
+    width: 100%; /* Garante que a imagem preencha completamente a largura do card */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha em telas menores */
+    max-width: 1200px; /* Define a largura máxima do container */
+    margin: 20px auto; /* Centraliza o container na tela com uma margem superior */
+}
+
+    </style>
+    <title>Catálogo de receitas</title>
+</head>
+<body class="container-fluid bg-warning">
+  
+<div class="formatacao" id="pnlCatalogo" style="height: 100%;" onload="preencheCatalogo()"></div>
+<script>
+    async function carregarDados() {
+        try {
+            const resposta = await fetch("E:\ESTUDOS\Front End\pagina teste\receitas.json");
+            const dados = await resposta.json();
+
+            console.log("dados JSON carregados", dados);
+
+        } catch (erro) {
+            console.error("Erro ao carregar dados JSON", erro);
+        }
+    }
+
+    carregarDados();
+
+    const receitas = [
+        {
+            "titulo": "Pão de Queijo",
+            "imagem": "pao de queijo.jpg",
+            "preparo": "1. Misture polvilho e queijo.\n2. Acrescente ovos e leite.\n3. Adicione sal a gosto.\n4. Modele e asse em forno preaquecido.",
+            "ingredientes": ["500g de polvilho doce", "250g de queijo minas ralado", "2 ovos", "1 xícara de leite", "Sal a gosto"]
+        },
+        {
+            "titulo": "Omelete de Queijo e Tomate",
+            "imagem": "omelete.png",
+            "preparo": "1. Bata os ovos em uma tigela.\n2. Adicione queijo e tomate picados.\n3. Tempere com sal e pimenta.\n4. Cozinhe em frigideira até dourar.",
+            "ingredientes": ["3 ovos", "Queijo cheddar ralado", "Tomate picado", "Sal e pimenta a gosto"]
+        },
+        {
+            "titulo": "Salada Caesar",
+            "imagem": "salada ceasar.jpg",
+            "preparo": "1. Misture alface romana, croutons e queijo parmesão.\n2. Tempere com molho Caesar.\n3. Adicione tiras de frango grelhado.\n4. Sirva imediatamente.",
+            "ingredientes": ["Alface romana", "Croutons", "Queijo parmesão ralado", "Molho Caesar", "Peito de frango grelhado"]
+        }
+    ];
+
+    function getListaIngredientes(ingredientes) {
+        const lista = document.createElement("ul");
+
+        ingredientes.forEach(ingrediente => {
+            const itemLista = document.createElement("li");
+            itemLista.textContent = ingrediente;
+            lista.appendChild(itemLista);
+        });
+        return lista;
+    }
+
+    function getCard(receita) {
+        const card = document.createElement('div');
+        card.classList.add('painelReceita');
+
+        card.innerHTML = `
+        <h3>${receita.titulo}</h3>
+        <img src="${receita.imagem}" alt="${receita.titulo}">
+        <p>${receita.preparo}</p>
+        <p>Ingredientes:</p>
+    `;
+
+        card.appendChild(getListaIngredientes(receita.ingredientes));
+
+        return card;
+    }
+
+    function exibirReceitas() {
+        const pnlCatalogo = document.getElementById("pnlCatalogo");
+
+        receitas.forEach(receita => {
+            const painelReceita = getCard(receita);
+            pnlCatalogo.appendChild(painelReceita);
+        });
+    }
+    function getListaIngredientes(ingredientes) {
+            const listaHTML = `<ul>${ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, item) => acc + item, '')}</ul>`;
+            return listaHTML;
+        }
+
+        function getCard(receita) {
+    const card = document.createElement('div');
+    card.classList.add('card'); 
+    card.style.width = '250px'; 
+
+    card.innerHTML = `
+        <img src="${receita.imagem}" alt="${receita.titulo}" class="card-img-top"> <!-- (c) Image with class 'card-img-top' -->
+        <div class="card-body"> <!-- (d) Div with class 'card-body' for the body of the card -->
+            <h5 class="card-title">${receita.titulo}</h5> <!-- (e) Title with class 'card-title' -->
+            <div class="card-text"> <!-- (f) Div with class 'card-text' -->
+                ${getListaIngredientes(receita.ingredientes)} <!-- List of ingredients -->
+                <hr> <!-- Separator -->
+                <p>${receita.preparo}</p> <!-- Text from the 'preparo' field -->
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
+    exibirReceitas();
+</script>
+</body>
+</html>

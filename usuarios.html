@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Document</title>
+</head>
+<body class="container bg-warning">
+    <h1>Usuários teste via REST</h1>
+    <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: aliceblue;">Os usuários deste exemplo são fornecidos pela API de testes reqres.in</h3>
+
+    <div id="app" class="row">
+        <div v-for="(user, index) in users" :key="index" class="col-md-4 card p-2 m-3">
+            <img :src="user.avatar" alt="Imagem do usuário" class="card-img-top">
+            <div class="card-body">
+                <div class="card-title">
+                    <h5> {{ user.first_name }} {{ user.last_name }} </h5>
+                </div>
+                <p> {{ user.email }} </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                users: []
+            },
+            mounted() {
+                this.loadUsers();
+            },
+            methods: {
+                async loadUsers() {
+                    try {
+                        const response = await $.ajax({
+                            url: 'https://reqres.in/api/users?per_page=10',
+                            method: 'GET'
+                        });
+
+                        this.users = response.data;
+                    } catch (error) {
+                        console.error('Erro na requisição:', error);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+   
+    <script>
+        new Vue({
+            el: '#usuarios',
+            data: {
+                users: []
+            },
+            mounted: function() {
+                this.loadUsers();
+            },
+            methods: {
+    loadUsers: function() {
+        // Utilizando jQuery AJAX para obter os dados JSON da API
+        $.ajax({
+            url: 'https://reqres.in/api/users?per_page=10',
+            method: 'GET',
+            success: (response) => {
+                // Preenchendo o vetor users com os dados obtidos
+                this.users = response.data;
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Erro na requisição:', textStatus, errorThrown);
+            }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
